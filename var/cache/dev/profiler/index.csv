@@ -1,8 +1,0 @@
-c205d4,172.17.0.1,GET,http://www.oauth.web.docker/login,1484750224,,200
-3bb663,172.17.0.1,GET,http://www.oauth.web.docker/login,1484750264,,200
-2e90ec,172.17.0.1,POST,http://www.oauth.web.docker/login_check,1484750531,,302
-3bc281,172.17.0.1,GET,http://www.oauth.web.docker/,1484750532,,200
-eaa6e5,172.17.0.1,GET,http://www.oauth.web.docker/logout,1484750537,,302
-607a87,172.17.0.1,GET,http://www.oauth.web.docker/login,1484750537,,200
-cad5bb,172.17.0.1,GET,http://www.oauth.web.docker/,1484750546,,302
-a0c5bd,172.17.0.1,GET,http://www.oauth.web.docker/login,1484750546,,200
