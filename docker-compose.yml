@@ -1,19 +1,59 @@
-# This container is specific to the application.
-# It contains configuration and data for other containers.
 data:
     image: busybox
-    container_name: mmc-card_data
+    container_name: oauth_data
     volumes:
         - .:/srv
+        - ./docker/conf/nginx_vhost.conf:/etc/nginx/sites-enabled/my_app.conf
         - ./docker/.home-developer:/home/developer
+        - /var/lib/mysql
+
+webserver:
+    image: greg0ire/nginx
+    container_name: oauth_webserver
+    volumes_from:
+        - data
+    links:
+        - appserver
+    env_file:
+        - ./docker/docker-compose.env
+    environment:
+        - DNSDOCK_IMAGE=web
+    restart: always
+
+appserver:
+    image: meuhmeuhconcept/php-fpm
+    container_name: oauth_appserver
+    volumes_from:
+        - data
+    links:
+        - database
+    env_file:
+        - ./docker/docker-compose.env
+    environment:
+        - DNSDOCK_IMAGE=app
+    restart: always
 
 console:
     image: meuhmeuhconcept/php-console
-    container_name: mmc-card_console
+    container_name: oauth_console
     volumes_from:
         - data
+    links:
+        - database
     env_file:
         - ./docker/docker-compose.env
     environment:
         - DNSDOCK_IMAGE=console
     working_dir: /srv
+    restart: always
+
+database:
+    image: mariadb:10.0
+    container_name: oauth_database
+    volumes_from:
+        - data
+    env_file:
+        - ./docker/docker-compose.env
+    environment:
+        - DNSDOCK_IMAGE=db
+    restart: always
