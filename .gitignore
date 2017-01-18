@@ -4,3 +4,8 @@
 
 # Composer
 /vendor
+
+# PHP CS
+.php_cs.cache
+
+/patchs
